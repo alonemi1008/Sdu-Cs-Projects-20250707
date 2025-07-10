@@ -128,10 +128,3 @@ advanced_system = AdvancedWatermarkSystem()
 2. 测试图像文件需放在 `images/` 目录下
 3. 运行前确保有足够的磁盘空间存储输出结果
 4. DWT-DCT-SVD算法需要安装 `blind-watermark` 库
-
-## 技术支持
-
-如有问题，请参考：
-- 项目总结报告：`docs/FINAL_PROJECT_SUMMARY.md`
-- 主项目说明：`README.md`
-- 各模块的具体实现和注释 
