@@ -38,6 +38,14 @@ SIMD (Single Instruction Multiple Data) 优化利用现代CPU的向量处理能�
 
 值得注意的是，AES-NI只能处理128位数据，在理论上处理宽度小于可处理256位的AVX2，但由于是专用硬件加速，实际性能表现优异。
 
+## 编译指令
+### aes-ni
+g++ -O3 -std=c++11 -maes -mavx2 main.cpp sm4.cpp sm4_aesni.cpp -o sm4_aesni.exe
+### table
+g++ -O3 -std=c++11 main.cpp SM4.cpp -o sm4_table.exe
+### simd
+g++ -O3 -std=c++11 -mavx2 main.cpp sm4_simd_sbox.cpp -o sm4_simd.exe
+
 ## 性能测试与比较
 
 ### 1. 基础查找表实现
