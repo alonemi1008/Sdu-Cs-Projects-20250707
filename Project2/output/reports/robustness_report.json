@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-07-10T16:44:55.155466",
+  "original_text": "山东大学网络空间安全学院",
+  "summary": {
+    "total_tests": 10,
+    "successful_tests": 0,
+    "success_rate": 0.0
+  },
+  "detailed_results": {
+    "horizontal_flip": {
+      "success": false,
+      "extracted_text": "UIloLommKkmdmlmIG,R&mI'Hm`OomI$[I$$mI$I$I&I$J$[mmm...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\horizontal_flip.png"
+    },
+    "vertical_flip": {
+      "success": false,
+      "extracted_text": "I$I$I$I$I$I$I$I$I$I$I$I$I$I$I$I$I$I%mmmmlI-@mmm6mm...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\vertical_flip.png"
+    },
+    "rotation_45": {
+      "success": false,
+      "extracted_text": "[>TA]7iX$$cKt@m_$$@rI$BHIDB@F@ Hh$I@ $\"IH$I\"H$I\"HH...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\rotation_45.png"
+    },
+    "crop_80": {
+      "success": false,
+      "extracted_text": "I$HD.I$I$I$I$I$I/mmmmmmmKmm2I$I$I$mI$$I$[mmI%vI$I$...",
+      "accuracy": 0.09090909090909091,
+      "attack_path": "output/robustness_test\\crop_80.png"
+    },
+    "resize_75": {
+      "success": false,
+      "extracted_text": "&^v%&7##DD?##I$I$I%mmmmm$I%mI$I$I$mI%I$I%mm$I$m$I$...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\resize_75.png"
+    },
+    "contrast_150": {
+      "success": false,
+      "extracted_text": "A\"@\"A6A6A&A A2MA4AA6MJaJ$I$I$I$I$$I$I$I$I&mmmmI$I$...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\contrast_150.png"
+    },
+    "brightness_120": {
+      "success": false,
+      "extracted_text": "SjRcSSvQfQ`Qr_LSuS^Sv_BN)N$I$I$HI$I$I$I$I$I$ImmmI$...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\brightness_120.png"
+    },
+    "gaussian_noise_25": {
+      "success": false,
+      "extracted_text": "|;*q\\&c@LInbQz^,Ci%QT}!rl,M$m%=?s)P`5nJt!-gGghr#tN...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\gaussian_noise_25.png"
+    },
+    "jpeg_50": {
+      "success": false,
+      "extracted_text": "mmmiG?R]vmmmmmmmmmmmmmmM'mmmmmmmmmmmmI$I$Im%yo-$I$...",
+      "accuracy": 0.0,
+      "attack_path": "output/robustness_test\\jpeg_50.png"
+    },
+    "salt_pepper_5": {
+      "success": false,
+      "extracted_text": "#/#END###I$I$I%ml6mmEdI%o$I$I$@mI%I I%mm$I$m$I$m$K...",
+      "accuracy": 0.6363636363636364,
+      "attack_path": "output/robustness_test\\salt_pepper_5.png"
+    }
+  }
+}
