@@ -25,7 +25,7 @@ SM4分组密码算法的三种优化实现：
 - 专业可视化展示和攻击效果分析
 - 完整的中文文档和本土化界面
 
-详细说明请见[Project2/README.md](./Project2/README.md)
+详细说明请见[Project2-Watermarked/README.md](./Project2-Watermarked/README.md)
 
 ## 性能对比
 
@@ -52,7 +52,7 @@ SM4分组密码算法的三种优化实现：
 - 对于SIMD优化，需要支持SSE/AVX指令集
 - 对于AES-NI优化，需要Intel处理器并支持AES-NI指令集
 
-### Project2
+### Project2-Watermarked
 - Python 3.8+
 - OpenCV 4.5+
 - NumPy 1.19+
@@ -69,7 +69,7 @@ g++ -O3 -std=c++11 -maes -mavx2 main.cpp sm4.cpp sm4_aesni.cpp -o sm4_aesni.exe
 
 ### 运行数字水印系统
 ```bash
-cd Project2
+cd Project2-Watermarked
 pip install -r requirements.txt
 python run_demo.py
 ``` 
