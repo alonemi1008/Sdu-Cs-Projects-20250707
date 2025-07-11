@@ -1,0 +1,42 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Circom compilation outputs
+*.r1cs
+*.sym
+*_js/
+*.wasm
+
+# Groth16 ceremony files
+*.ptau
+*.zkey
+verification_key.json
+
+# Witness and proof files
+witness.wtns
+input.json
+proof.json
+
+# Build outputs
+build/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp 

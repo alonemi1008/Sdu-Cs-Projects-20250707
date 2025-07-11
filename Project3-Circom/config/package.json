@@ -1,0 +1,33 @@
+{
+  "name": "poseidon2-circom",
+  "version": "1.0.0",
+  "description": "Poseidon2 hash circuit implementation in Circom with Groth16 proof generation",
+  "main": "index.js",
+  "scripts": {
+    "compile": ".\\circom.exe circuits/poseidon2_proof_fixed.circom --r1cs --wasm --sym",
+    "setup": "node scripts/setup.js",
+    "prove": "node scripts/prove.js",
+    "verify": "node scripts/verify.js",
+    "test": "node tests/test_poseidon2.js",
+    "demo": "node run_demo.js",
+    "demo-sim": "node scripts/demo_simulation.js"
+  },
+  "keywords": [
+    "circom",
+    "poseidon2",
+    "hash",
+    "zk-proof",
+    "groth16"
+  ],
+  "author": "Sdu Cybersecurity",
+  "license": "MIT",
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "snarkjs": "^0.7.0",
+    "ffjavascript": "^0.2.60"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
+  }
+} 
