@@ -6,8 +6,12 @@ SM2功能测试脚本
 """
 
 import time
-from sm2_basic import SM2Basic
-from sm2_optimized import SM2Optimized
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from src.core.sm2_basic import SM2Basic
+from src.core.sm2_optimized import SM2Optimized
 
 def test_basic_functionality():
     """测试基础功能"""

@@ -9,7 +9,7 @@ import hashlib
 import random
 import time
 from typing import Tuple, List, Dict, Optional
-from sm2_basic import SM2Point, SM2Basic
+from .sm2_basic import SM2Point, SM2Basic
 
 class SM2Optimized(SM2Basic):
     """SM2椭圆曲线密码算法优化实现"""

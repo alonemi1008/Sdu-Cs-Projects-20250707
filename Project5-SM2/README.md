@@ -4,25 +4,33 @@
 
 本项目实现了SM2椭圆曲线密码算法的完整功能，包括基础版本和多种优化版本。SM2是中国国家密码管理局发布的椭圆曲线公钥密码算法，广泛应用于数字签名、密钥交换和公钥加密等领域。
 
-## 项目特点
-
-- **完整实现**: 包含SM2的所有核心功能（密钥生成、加密解密、数字签名）
-- **多版本对比**: 提供基础版本和优化版本的性能对比
-- **优化技术**: 实现了多种椭圆曲线点乘法优化算法
-- **性能测试**: 全面的性能基准测试和分析
-- **易于使用**: 提供简洁的API和详细的演示程序
-
 ## 文件结构
 
 ```
 Project5-SM2/
-├── sm2_basic.py           # SM2基础实现
-├── sm2_optimized.py       # SM2优化实现
-├── performance_test.py    # 性能测试脚本
-├── main.py               # 主演示程序
-├── README.md             # 项目文档
-├── USAGE_GUIDE.md        # 使用指南
-└── 20250710-fu-SM2-public.pdf  # 参考文档
+├── src/                          # 源代码目录
+│   ├── __init__.py
+│   ├── core/                     # 核心算法实现
+│   │   ├── __init__.py
+│   │   ├── sm2_basic.py         # SM2基础实现
+│   │   └── sm2_optimized.py     # SM2优化实现
+│   └── protocols/               # 协议实现
+│       ├── __init__.py
+│       ├── sm2_signature_protocol.py  # SM2签名协议
+│       └── sm2_key_exchange.py        # SM2密钥交换协议
+├── tests/                       # 测试文件
+│   ├── __init__.py
+│   └── test_sm2.py             # 基础测试
+├── examples/                    # 示例和演示
+│   ├── sm2_protocols_demo.py   # 协议演示程序
+│   └── performance_test.py     # 性能测试
+├── docs/                       # 文档目录
+├── results/                    # 结果输出目录
+│   └── sm2_performance_results.json  # 性能测试结果
+├── main.py                     # 主程序
+├── run_demo.py                 # 演示启动器
+├── README.md                   # 项目说明
+└── requirements.txt            # 依赖说明
 ```
 
 ## 核心功能
@@ -56,7 +64,7 @@ Project5-SM2/
 ### 基本使用
 
 ```python
-from sm2_basic import SM2Basic
+from src.core.sm2_basic import SM2Basic
 
 # 创建SM2实例
 sm2 = SM2Basic()
@@ -79,7 +87,7 @@ is_valid = sm2.verify(message, signature, public_key)
 ### 优化版本使用
 
 ```python
-from sm2_optimized import SM2Optimized
+from src.core.sm2_optimized import SM2Optimized
 
 # 创建优化版本的SM2实例
 sm2 = SM2Optimized()
@@ -189,13 +197,6 @@ python main.py
 - **随机数安全**: 使用系统安全随机数生成器
 - **参数验证**: 严格的输入参数检查
 
-## 应用场景
-
-- **数字证书**: PKI基础设施
-- **安全通信**: TLS/SSL协议
-- **电子签名**: 文档和交易签名
-- **身份认证**: 用户身份验证
-- **区块链**: 数字货币和智能合约
 
 ## 依赖要求
 
@@ -223,10 +224,3 @@ python performance_test.py
 python -m coverage run -m pytest tests/
 python -m coverage report
 ```
-
-## 贡献指南
-
-1. Fork项目
-2. 创建功能分支
-3. 提交更改
-4. 发起Pull Request

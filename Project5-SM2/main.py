@@ -8,9 +8,9 @@ SM2椭圆曲线密码算法主演示程序
 import sys
 import time
 import random
-from sm2_basic import SM2Basic
-from sm2_optimized import SM2Optimized
-from performance_test import SM2PerformanceTester
+from src.core.sm2_basic import SM2Basic
+from src.core.sm2_optimized import SM2Optimized
+from examples.performance_test import SM2PerformanceTester
 
 def demo_basic_functionality():
     """演示SM2基本功能"""
@@ -414,9 +414,21 @@ def main():
             tester.run_all_benchmarks()
             tester.print_results()
             tester.save_results()
+        elif mode == 'protocols':
+            print("Running SM2 protocols demo...")
+            import examples.sm2_protocols_demo as sm2_protocols_demo
+            sm2_protocols_demo.main()
+        elif mode == 'signature':
+            print("Running signature protocol demo...")
+            from src.protocols.sm2_signature_protocol import demo_signature_protocol
+            demo_signature_protocol()
+        elif mode == 'keyexchange':
+            print("Running key exchange protocol demo...")
+            from src.protocols.sm2_key_exchange import demo_key_exchange
+            demo_key_exchange()
         else:
             print(f"Unknown mode: {mode}")
-            print("Available modes: basic, optimized, performance, interactive, full-test")
+            print("Available modes: basic, optimized, performance, interactive, full-test, protocols, signature, keyexchange")
     else:
         print("\nRunning comprehensive demo...")
         print("\n" + "=" * 60)
@@ -431,6 +443,7 @@ def main():
         print("\n" + "=" * 60)
         print("Demo completed successfully!")
         print("Run with 'python main.py interactive' for interactive mode")
+        print("Run with 'python main.py protocols' for signature and key exchange protocols")
         print("Run with 'python main.py full-test' for complete performance analysis")
 
 if __name__ == "__main__":

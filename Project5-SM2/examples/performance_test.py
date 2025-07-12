@@ -10,8 +10,8 @@ import random
 import statistics
 import json
 from typing import List, Dict, Tuple
-from sm2_basic import SM2Basic
-from sm2_optimized import SM2Optimized
+from src.core.sm2_basic import SM2Basic
+from src.core.sm2_optimized import SM2Optimized
 
 class SM2PerformanceTester:
     """SM2性能测试类"""

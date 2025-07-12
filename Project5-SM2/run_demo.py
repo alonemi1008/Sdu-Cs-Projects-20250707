@@ -18,7 +18,11 @@ def print_menu():
     print("4. Interactive demo")
     print("5. Full performance test")
     print("6. Quick test")
-    print("7. Exit")
+    print("7. Signature protocol demo")
+    print("8. Key exchange protocol demo")
+    print("9. Comprehensive protocols demo")
+    print("10. Protocol tests")
+    print("11. Exit")
     print("=" * 40)
 
 def run_demo():
@@ -27,7 +31,7 @@ def run_demo():
         print_menu()
         
         try:
-            choice = input("Select option (1-7): ").strip()
+            choice = input("Select option (1-11): ").strip()
             
             if choice == '1':
                 print("Running basic functionality demo...")
@@ -51,9 +55,24 @@ def run_demo():
                 
             elif choice == '6':
                 print("Running quick test...")
-                os.system("python test_sm2.py")
+                os.system("python tests/test_sm2.py")
                 
             elif choice == '7':
+                print("Running signature protocol demo...")
+                os.system("python main.py signature")
+                
+            elif choice == '8':
+                print("Running key exchange protocol demo...")
+                os.system("python main.py keyexchange")
+                
+            elif choice == '9':
+                print("Running comprehensive protocols demo...")
+                os.system("python main.py protocols")
+                
+            elif choice == '10':
+                print("Protocol tests have been integrated into main tests")
+                
+            elif choice == '11':
                 print("Goodbye!")
                 break
                 
@@ -84,11 +103,14 @@ def main():
     
     # 检查文件是否存在
     required_files = [
-        'sm2_basic.py',
-        'sm2_optimized.py',
+        'src/core/sm2_basic.py',
+        'src/core/sm2_optimized.py',
         'main.py',
-        'test_sm2.py',
-        'performance_test.py'
+        'tests/test_sm2.py',
+        'examples/performance_test.py',
+        'src/protocols/sm2_signature_protocol.py',
+        'src/protocols/sm2_key_exchange.py',
+        'examples/sm2_protocols_demo.py'
     ]
     
     missing_files = []
