@@ -30,33 +30,35 @@
 #define P0(x) ((x) ^ ROL((x), 9) ^ ROL((x), 17))
 #define P1(x) ((x) ^ ROL((x), 15) ^ ROL((x), 23))
 
-// SIMD版本的旋转运算
-static inline __m128i _mm_rol_epi32(__m128i x, int k) {
+// SIMD版本的旋转运算 - 使用自定义名称避免与内置函数冲突
+static inline __m128i sm3_mm_rol_epi32(__m128i x, int k) {
     return _mm_or_si128(_mm_slli_epi32(x, k), _mm_srli_epi32(x, 32 - k));
 }
 
-static inline __m256i _mm256_rol_epi32(__m256i x, int k) {
+static inline __m256i sm3_mm256_rol_epi32(__m256i x, int k) {
     return _mm256_or_si256(_mm256_slli_epi32(x, k), _mm256_srli_epi32(x, 32 - k));
 }
 
 // SIMD版本的P0和P1函数
-static inline __m128i _mm_P0_epi32(__m128i x) {
-    return _mm_xor_si128(_mm_xor_si128(x, _mm_rol_epi32(x, 9)), _mm_rol_epi32(x, 17));
+static inline __m128i sm3_mm_P0_epi32(__m128i x) {
+    return _mm_xor_si128(_mm_xor_si128(x, sm3_mm_rol_epi32(x, 9)), sm3_mm_rol_epi32(x, 17));
 }
 
-static inline __m128i _mm_P1_epi32(__m128i x) {
-    return _mm_xor_si128(_mm_xor_si128(x, _mm_rol_epi32(x, 15)), _mm_rol_epi32(x, 23));
+static inline __m128i sm3_mm_P1_epi32(__m128i x) {
+    return _mm_xor_si128(_mm_xor_si128(x, sm3_mm_rol_epi32(x, 15)), sm3_mm_rol_epi32(x, 23));
 }
 
-static inline __m256i _mm256_P0_epi32(__m256i x) {
-    return _mm256_xor_si256(_mm256_xor_si256(x, _mm256_rol_epi32(x, 9)), _mm256_rol_epi32(x, 17));
+static inline __m256i sm3_mm256_P0_epi32(__m256i x) {
+    return _mm256_xor_si256(_mm256_xor_si256(x, sm3_mm256_rol_epi32(x, 9)), sm3_mm256_rol_epi32(x, 17));
 }
 
-static inline __m256i _mm256_P1_epi32(__m256i x) {
-    return _mm256_xor_si256(_mm256_xor_si256(x, _mm256_rol_epi32(x, 15)), _mm256_rol_epi32(x, 23));
+static inline __m256i sm3_mm256_P1_epi32(__m256i x) {
+    return _mm256_xor_si256(_mm256_xor_si256(x, sm3_mm256_rol_epi32(x, 15)), sm3_mm256_rol_epi32(x, 23));
 }
 
-// SM3初始值IV
+// SM3初始值IV - 避免重复定义
+#ifndef SM3_CONSTANTS_DEFINED
+#define SM3_CONSTANTS_DEFINED
 static const uint32_t SM3_IV[8] = {
     0x7380166F, 0x4914B2B9, 0x172442D7, 0xDA8A0600,
     0xA96F30BC, 0x163138AA, 0xE38DEE4D, 0xB0FB0E4E
@@ -67,6 +69,7 @@ static const uint32_t SM3_T[2] = {
     0x79CC4519, // T_j for j = 0, 1, ..., 15
     0x7A879D8A  // T_j for j = 16, 17, ..., 63
 };
+#endif // SM3_CONSTANTS_DEFINED
 
 // SM3上下文结构
 typedef struct {

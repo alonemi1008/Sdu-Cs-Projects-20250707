@@ -91,10 +91,10 @@ void sm3_simd_compress(sm3_simd_context_t *ctx, const uint8_t *block) {
         
         // temp = W[j-16] ^ W[j-9] ^ ROL(W[j-3], 15)
         __m128i temp = _mm_xor_si128(w_minus_16, w_minus_9);
-        temp = _mm_xor_si128(temp, _mm_rol_epi32(w_minus_3, 15));
+        temp = _mm_xor_si128(temp, sm3_mm_rol_epi32(w_minus_3, 15));
         
         // W[j] = P1(temp) ^ ROL(W[j-13], 7) ^ W[j-6]
-        __m128i result = _mm_xor_si128(_mm_P1_epi32(temp), _mm_rol_epi32(w_minus_13, 7));
+        __m128i result = _mm_xor_si128(sm3_mm_P1_epi32(temp), sm3_mm_rol_epi32(w_minus_13, 7));
         result = _mm_xor_si128(result, w_minus_6);
         
         _mm_storeu_si128((__m128i*)(W + j), result);
@@ -176,9 +176,9 @@ void sm3_simd_compress_4blocks(const uint8_t *blocks[4], uint32_t states[4][8]) 
         for (int k = 0; k < 4 && j + k < 68; k++) {
             // 计算当前位置的扩展字
             __m128i temp = _mm_xor_si128(w0_minus_16, w0_minus_9);
-            temp = _mm_xor_si128(temp, _mm_rol_epi32(w0_minus_3, 15));
+            temp = _mm_xor_si128(temp, sm3_mm_rol_epi32(w0_minus_3, 15));
             
-            __m128i result = _mm_xor_si128(_mm_P1_epi32(temp), _mm_rol_epi32(w0_minus_13, 7));
+            __m128i result = _mm_xor_si128(sm3_mm_P1_epi32(temp), sm3_mm_rol_epi32(w0_minus_13, 7));
             result = _mm_xor_si128(result, w0_minus_6);
             
             // 存储结果到各个块

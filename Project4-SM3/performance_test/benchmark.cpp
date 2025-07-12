@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cstring>
 #include <memory>
+#include <sstream>
 
 // 包含两个版本的头文件
 #include "../sm3_basic/sm3.h"

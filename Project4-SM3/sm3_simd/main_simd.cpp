@@ -146,7 +146,7 @@ void test_simd_instructions() {
     cout << endl;
     
     // 测试左旋转12位
-    __m128i rotated = _mm_rol_epi32(test_vec, 12);
+    __m128i rotated = sm3_mm_rol_epi32(test_vec, 12);
     uint32_t rotated_values[4];
     _mm_storeu_si128((__m128i*)rotated_values, rotated);
     
@@ -169,8 +169,8 @@ void test_simd_instructions() {
     cout << "\nSIMD旋转运算测试通过！" << endl;
     
     // 测试P0和P1函数
-    __m128i p0_result = _mm_P0_epi32(test_vec);
-    __m128i p1_result = _mm_P1_epi32(test_vec);
+    __m128i p0_result = sm3_mm_P0_epi32(test_vec);
+    __m128i p1_result = sm3_mm_P1_epi32(test_vec);
     
     uint32_t p0_values[4], p1_values[4];
     _mm_storeu_si128((__m128i*)p0_values, p0_result);
@@ -241,7 +241,7 @@ void test_memory_alignment() {
     for (int iter = 0; iter < iterations; iter++) {
         for (int i = 0; i < 64; i += 4) {
             __m128i data = _mm_load_si128((__m128i*)(aligned_mem + i));
-            __m128i result = _mm_rol_epi32(data, 7);
+            __m128i result = sm3_mm_rol_epi32(data, 7);
             _mm_store_si128((__m128i*)(aligned_mem + i), result);
         }
     }
