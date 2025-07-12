@@ -55,7 +55,7 @@ void sm3_simd_final(sm3_simd_context_t *ctx, uint8_t *digest) {
     }
 }
 
-// 一次性SIMD哈希计算
+// One-time SIMD hash calculation
 void sm3_simd_hash(const uint8_t *data, uint32_t len, uint8_t *digest) {
     sm3_simd_context_t ctx;
     sm3_simd_init(&ctx);

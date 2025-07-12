@@ -9,43 +9,43 @@ using namespace std::chrono;
 
 // 测试向量验证
 void test_sm3_correctness() {
-    cout << "=== SM3正确性测试 ===" << endl;
+    cout << "=== SM3 Correctness Test ===" << endl;
     
     // 测试向量1: "abc"
     const char* msg1 = "abc";
     uint8_t digest1[SM3_DIGEST_SIZE];
     sm3_hash((const uint8_t*)msg1, strlen(msg1), digest1);
     
-    cout << "测试1 - 输入: \"abc\"" << endl;
-    cout << "输出: ";
+    cout << "Test 1 - Input: \"abc\"" << endl;
+    cout << "Output: ";
     sm3_print_hex(digest1, SM3_DIGEST_SIZE);
-    cout << "期望: 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0" << endl;
+    cout << "Expected: 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0" << endl;
     
     // 测试向量2: "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
     const char* msg2 = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd";
     uint8_t digest2[SM3_DIGEST_SIZE];
     sm3_hash((const uint8_t*)msg2, strlen(msg2), digest2);
     
-    cout << "\n测试2 - 输入: \"" << msg2 << "\"" << endl;
-    cout << "输出: ";
+    cout << "\nTest 2 - Input: \"" << msg2 << "\"" << endl;
+    cout << "Output: ";
     sm3_print_hex(digest2, SM3_DIGEST_SIZE);
-    cout << "期望: debe9ff92275b8a138604889c18e5a4d6fdb70e5387e5765293dcba39c0c5732" << endl;
+    cout << "Expected: debe9ff92275b8a138604889c18e5a4d6fdb70e5387e5765293dcba39c0c5732" << endl;
     
     // 测试向量3: 空字符串
     uint8_t digest3[SM3_DIGEST_SIZE];
     sm3_hash(nullptr, 0, digest3);
     
-    cout << "\n测试3 - 输入: 空字符串" << endl;
-    cout << "输出: ";
+    cout << "\nTest 3 - Input: Empty string" << endl;
+    cout << "Output: ";
     sm3_print_hex(digest3, SM3_DIGEST_SIZE);
-    cout << "期望: 1ab21d8355cfa17f8e61194831e81a8f22bec8c728fefb747ed035eb5082aa2b" << endl;
+    cout << "Expected: 1ab21d8355cfa17f8e61194831e81a8f22bec8c728fefb747ed035eb5082aa2b" << endl;
     
     cout << endl;
 }
 
 // 性能测试
 void test_sm3_performance() {
-    cout << "=== SM3性能测试 ===" << endl;
+    cout << "=== SM3 Performance Test ===" << endl;
     
     // 测试不同大小的数据
     vector<size_t> test_sizes = {
@@ -56,7 +56,7 @@ void test_sm3_performance() {
     };
     
     for (size_t size : test_sizes) {
-        cout << "\n测试数据大小: " << size / 1024 << " KB" << endl;
+        cout << "\nTest data size: " << size / 1024 << " KB" << endl;
         
         // 准备测试数据
         vector<uint8_t> data(size);
@@ -74,16 +74,16 @@ void test_sm3_performance() {
         auto duration = duration_cast<milliseconds>(end_time - start_time);
         double throughput = (double)size / (1024 * 1024) / (duration.count() / 1000.0);
         
-        cout << "耗时: " << duration.count() << " ms" << endl;
-        cout << "吞吐量: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
-        cout << "摘要: ";
+        cout << "Time: " << duration.count() << " ms" << endl;
+        cout << "Throughput: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
+        cout << "Hash: ";
         sm3_print_hex(digest, SM3_DIGEST_SIZE);
     }
 }
 
 // 批量性能测试
 void test_batch_performance() {
-    cout << "\n=== 批量处理性能测试 ===" << endl;
+    cout << "\n=== Batch Processing Performance Test ===" << endl;
     
     const size_t block_size = 64 * 1024; // 64KB
     const int iterations = 1000;
@@ -107,21 +107,21 @@ void test_batch_performance() {
     double total_mb = (double)(block_size * iterations) / (1024 * 1024);
     double throughput = total_mb / (duration.count() / 1000.0);
     
-    cout << "批量处理 " << iterations << " 次 " << block_size / 1024 << "KB 数据" << endl;
-    cout << "总耗时: " << duration.count() << " ms" << endl;
-    cout << "平均吞吐量: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
-    cout << "最终摘要: ";
+    cout << "Batch processing " << iterations << " times of " << block_size / 1024 << "KB data" << endl;
+    cout << "Total time: " << duration.count() << " ms" << endl;
+    cout << "Average throughput: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
+    cout << "Final hash: ";
     sm3_print_hex(digest, SM3_DIGEST_SIZE);
 }
 
 // 内存使用测试
 void test_memory_usage() {
-    cout << "\n=== 内存使用测试 ===" << endl;
+    cout << "\n=== Memory Usage Test ===" << endl;
     
     sm3_context_t ctx;
-    cout << "SM3上下文大小: " << sizeof(ctx) << " 字节" << endl;
-    cout << "状态数组大小: " << sizeof(ctx.state) << " 字节" << endl;
-    cout << "缓冲区大小: " << sizeof(ctx.buffer) << " 字节" << endl;
+    cout << "SM3 context size: " << sizeof(ctx) << " bytes" << endl;
+    cout << "State array size: " << sizeof(ctx.state) << " bytes" << endl;
+    cout << "Buffer size: " << sizeof(ctx.buffer) << " bytes" << endl;
     
     // 测试增量更新
     const char* test_data = "The quick brown fox jumps over the lazy dog";
@@ -146,15 +146,15 @@ void test_memory_usage() {
     
     auto duration = duration_cast<microseconds>(end_time - start_time);
     
-    cout << "增量更新测试数据: \"" << test_data << "\"" << endl;
-    cout << "分块大小: " << chunk_size << " 字节" << endl;
-    cout << "耗时: " << duration.count() << " 微秒" << endl;
-    cout << "摘要: ";
+    cout << "Incremental update test data: \"" << test_data << "\"" << endl;
+    cout << "Chunk size: " << chunk_size << " bytes" << endl;
+    cout << "Time: " << duration.count() << " microseconds" << endl;
+    cout << "Hash: ";
     sm3_print_hex(digest, SM3_DIGEST_SIZE);
 }
 
 int main() {
-    cout << "SM3 哈希算法 - 基础优化版本测试" << endl;
+    cout << "SM3 Hash Algorithm - Basic Optimized Version Test" << endl;
     cout << "======================================" << endl;
     
     try {
@@ -163,10 +163,10 @@ int main() {
         test_batch_performance();
         test_memory_usage();
         
-        cout << "\n所有测试完成！" << endl;
+        cout << "\nAll tests completed!" << endl;
         
     } catch (const exception& e) {
-        cerr << "测试过程中发生错误: " << e.what() << endl;
+        cerr << "Error occurred during testing: " << e.what() << endl;
         return 1;
     }
     

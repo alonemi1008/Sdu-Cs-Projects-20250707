@@ -81,9 +81,9 @@ public:
     
     // 运行单个数据大小的基准测试
     void run_benchmark_for_size(size_t size, int iterations = 1) {
-        cout << "\n测试数据大小: " << size / 1024 << " KB";
+        cout << "\nTest data size: " << size / 1024 << " KB";
         if (iterations > 1) {
-            cout << " (平均 " << iterations << " 次)";
+            cout << " (average of " << iterations << " runs)";
         }
         cout << endl;
         
@@ -117,17 +117,17 @@ public:
         double speedup = basic_avg_time / simd_avg_time;
         
         cout << fixed << setprecision(2);
-        cout << "基础版本: " << basic_avg_time << " ms, " << basic_throughput << " MB/s" << endl;
-        cout << "SIMD版本: " << simd_avg_time << " ms, " << simd_throughput << " MB/s" << endl;
-        cout << "加速比: " << speedup << "x" << endl;
+        cout << "Basic version: " << basic_avg_time << " ms, " << basic_throughput << " MB/s" << endl;
+        cout << "SIMD version: " << simd_avg_time << " ms, " << simd_throughput << " MB/s" << endl;
+        cout << "Speedup: " << speedup << "x" << endl;
         
         // 验证结果一致性
         if (basic_digest != simd_digest) {
-            cout << "⚠️  警告: 基础版本和SIMD版本结果不一致!" << endl;
-            cout << "基础版本: " << basic_digest.substr(0, 16) << "..." << endl;
-            cout << "SIMD版本: " << simd_digest.substr(0, 16) << "..." << endl;
+            cout << "Warning: Basic and SIMD version results are inconsistent!" << endl;
+            cout << "Basic version: " << basic_digest.substr(0, 16) << "..." << endl;
+            cout << "SIMD version: " << simd_digest.substr(0, 16) << "..." << endl;
         } else {
-            cout << "✓ 结果验证通过" << endl;
+            cout << "Result verification passed" << endl;
         }
         
         // 保存结果
@@ -150,8 +150,8 @@ public:
     
     // 运行完整的基准测试套件
     void run_full_benchmark() {
-        cout << "=== SM3 性能基准测试 ===" << endl;
-        cout << "基础版本 vs SIMD优化版本" << endl;
+        cout << "=== SM3 Performance Benchmark ===" << endl;
+        cout << "Basic Version vs SIMD Optimized Version" << endl;
         cout << "=========================" << endl;
         
         // 不同大小的测试数据
@@ -172,7 +172,7 @@ public:
     
     // 测试向量验证
     void run_correctness_test() {
-        cout << "\n=== 正确性验证测试 ===" << endl;
+        cout << "\n=== Correctness Verification Test ===" << endl;
         
         vector<pair<string, string>> test_vectors = {
             {"", "1ab21d8355cfa17f8e61194831e81a8f22bec8c728fefb747ed035eb5082aa2b"},
@@ -194,23 +194,23 @@ public:
             string basic_hex = bytes_to_hex(basic_digest, SM3_DIGEST_SIZE);
             string simd_hex = bytes_to_hex(simd_digest, SM3_DIGEST_SIZE);
             
-            cout << "输入: \"" << tv.first << "\"" << endl;
-            cout << "期望: " << tv.second << endl;
-            cout << "基础: " << basic_hex << (basic_hex == tv.second ? " ✓" : " ✗") << endl;
-            cout << "SIMD: " << simd_hex << (simd_hex == tv.second ? " ✓" : " ✗") << endl;
-            cout << "一致: " << (basic_hex == simd_hex ? "是" : "否") << endl;
+            cout << "Input: \"" << tv.first << "\"" << endl;
+            cout << "Expected: " << tv.second << endl;
+            cout << "Basic: " << basic_hex << (basic_hex == tv.second ? " Pass" : " Fail") << endl;
+            cout << "SIMD: " << simd_hex << (simd_hex == tv.second ? " Pass" : " Fail") << endl;
+            cout << "Consistent: " << (basic_hex == simd_hex ? "Yes" : "No") << endl;
             cout << endl;
         }
     }
     
     // 生成性能报告
     void generate_report() {
-        cout << "\n=== 性能测试报告 ===" << endl;
-        cout << left << setw(12) << "版本" 
-             << setw(12) << "数据大小" 
-             << setw(12) << "耗时(ms)" 
-             << setw(15) << "吞吐量(MB/s)" 
-             << "摘要前16位" << endl;
+        cout << "\n=== Performance Test Report ===" << endl;
+        cout << left << setw(12) << "Version" 
+             << setw(12) << "Data Size" 
+             << setw(12) << "Time(ms)" 
+             << setw(15) << "Throughput(MB/s)" 
+             << "Hash(16chars)" << endl;
         cout << string(65, '-') << endl;
         
         for (size_t i = 0; i < results.size(); i += 2) {
@@ -231,7 +231,7 @@ public:
                  << simd.digest_hex.substr(0, 16) << endl;
             
             double speedup = basic.time_ms / simd.time_ms;
-            cout << left << setw(12) << "加速比"
+            cout << left << setw(12) << "Speedup"
                  << setw(12) << ""
                  << setw(12) << speedup << "x"
                  << setw(15) << ""
@@ -242,7 +242,7 @@ public:
     
     // 批量处理性能测试
     void run_batch_test() {
-        cout << "\n=== 批量处理性能测试 ===" << endl;
+        cout << "\n=== Batch Processing Performance Test ===" << endl;
         
         const int num_chunks = 100;
         const size_t chunk_size = 64 * 1024; // 64KB per chunk
@@ -275,17 +275,17 @@ public:
         double simd_throughput = total_mb / (simd_duration.count() / 1000.0);
         double speedup = (double)basic_duration.count() / simd_duration.count();
         
-        cout << "批量处理 " << num_chunks << " 个 " << chunk_size / 1024 << "KB 数据块" << endl;
-        cout << "基础版本: " << basic_duration.count() << " ms, " 
+                cout << "Batch processing " << num_chunks << " chunks of " << chunk_size / 1024 << "KB each" << endl;
+        cout << "Basic version: " << basic_duration.count() << " ms, "
              << fixed << setprecision(2) << basic_throughput << " MB/s" << endl;
-        cout << "SIMD版本: " << simd_duration.count() << " ms, " 
+        cout << "SIMD version: " << simd_duration.count() << " ms, "
              << fixed << setprecision(2) << simd_throughput << " MB/s" << endl;
-        cout << "批量处理加速比: " << speedup << "x" << endl;
+        cout << "Batch processing speedup: " << speedup << "x" << endl;
     }
 };
 
 int main() {
-    cout << "SM3 哈希算法性能基准测试" << endl;
+    cout << "SM3 Hash Algorithm Performance Benchmark" << endl;
     cout << "========================" << endl;
     
     SM3Benchmark benchmark;
@@ -296,10 +296,10 @@ int main() {
         benchmark.run_batch_test();
         benchmark.generate_report();
         
-        cout << "\n基准测试完成！" << endl;
+        cout << "\nBenchmark completed!" << endl;
         
     } catch (const exception& e) {
-        cerr << "基准测试过程中发生错误: " << e.what() << endl;
+        cerr << "Error occurred during benchmark: " << e.what() << endl;
         return 1;
     }
     

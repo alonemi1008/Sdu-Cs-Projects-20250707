@@ -9,43 +9,43 @@ using namespace std::chrono;
 
 // 测试SIMD版本正确性
 void test_sm3_simd_correctness() {
-    cout << "=== SM3 SIMD版本正确性测试 ===" << endl;
+    cout << "=== SM3 SIMD Correctness Test ===" << endl;
     
     // 测试向量1: "abc"
     const char* msg1 = "abc";
     uint8_t digest1[SM3_DIGEST_SIZE];
     sm3_simd_hash((const uint8_t*)msg1, strlen(msg1), digest1);
     
-    cout << "测试1 - 输入: \"abc\"" << endl;
-    cout << "SIMD输出: ";
+    cout << "Test 1 - Input: \"abc\"" << endl;
+    cout << "SIMD Output: ";
     sm3_simd_print_hex(digest1, SM3_DIGEST_SIZE);
-    cout << "期望输出: 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0" << endl;
+    cout << "Expected: 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0" << endl;
     
     // 测试向量2: "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
     const char* msg2 = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd";
     uint8_t digest2[SM3_DIGEST_SIZE];
     sm3_simd_hash((const uint8_t*)msg2, strlen(msg2), digest2);
     
-    cout << "\n测试2 - 输入: \"" << msg2 << "\"" << endl;
-    cout << "SIMD输出: ";
+    cout << "\nTest 2 - Input: \"" << msg2 << "\"" << endl;
+    cout << "SIMD Output: ";
     sm3_simd_print_hex(digest2, SM3_DIGEST_SIZE);
-    cout << "期望输出: debe9ff92275b8a138604889c18e5a4d6fdb70e5387e5765293dcba39c0c5732" << endl;
+    cout << "Expected: debe9ff92275b8a138604889c18e5a4d6fdb70e5387e5765293dcba39c0c5732" << endl;
     
     // 测试向量3: 空字符串
     uint8_t digest3[SM3_DIGEST_SIZE];
     sm3_simd_hash(nullptr, 0, digest3);
     
-    cout << "\n测试3 - 输入: 空字符串" << endl;
-    cout << "SIMD输出: ";
+    cout << "\nTest 3 - Input: Empty string" << endl;
+    cout << "SIMD Output: ";
     sm3_simd_print_hex(digest3, SM3_DIGEST_SIZE);
-    cout << "期望输出: 1ab21d8355cfa17f8e61194831e81a8f22bec8c728fefb747ed035eb5082aa2b" << endl;
+    cout << "Expected: 1ab21d8355cfa17f8e61194831e81a8f22bec8c728fefb747ed035eb5082aa2b" << endl;
     
     cout << endl;
 }
 
 // SIMD性能测试
 void test_sm3_simd_performance() {
-    cout << "=== SM3 SIMD版本性能测试 ===" << endl;
+    cout << "=== SM3 SIMD Performance Test ===" << endl;
     
     // 测试不同大小的数据
     vector<size_t> test_sizes = {
@@ -56,7 +56,7 @@ void test_sm3_simd_performance() {
     };
     
     for (size_t size : test_sizes) {
-        cout << "\n测试数据大小: " << size / 1024 << " KB" << endl;
+        cout << "\nTest data size: " << size / 1024 << " KB" << endl;
         
         // 准备测试数据
         vector<uint8_t> data(size);
@@ -74,16 +74,16 @@ void test_sm3_simd_performance() {
         auto duration = duration_cast<milliseconds>(end_time - start_time);
         double throughput = (double)size / (1024 * 1024) / (duration.count() / 1000.0);
         
-        cout << "SIMD耗时: " << duration.count() << " ms" << endl;
-        cout << "SIMD吞吐量: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
-        cout << "摘要: ";
+        cout << "SIMD Time: " << duration.count() << " ms" << endl;
+        cout << "SIMD Throughput: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
+        cout << "Hash: ";
         sm3_simd_print_hex(digest, SM3_DIGEST_SIZE);
     }
 }
 
 // 并行处理测试
 void test_parallel_processing() {
-    cout << "\n=== 并行处理测试 ===" << endl;
+    cout << "\n=== Parallel Processing Test ===" << endl;
     
     const int num_messages = 8;
     const size_t msg_size = 1024 * 1024; // 1MB per message
@@ -118,28 +118,28 @@ void test_parallel_processing() {
     double total_mb = (double)(msg_size * num_messages) / (1024 * 1024);
     double throughput = total_mb / (duration.count() / 1000.0);
     
-    cout << "并行处理 " << num_messages << " 个 " << msg_size / 1024 << "KB 消息" << endl;
-    cout << "总耗时: " << duration.count() << " ms" << endl;
-    cout << "总吞吐量: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
-    cout << "平均每消息吞吐量: " << fixed << setprecision(2) << throughput / num_messages << " MB/s" << endl;
+    cout << "Parallel processing " << num_messages << " messages of " << msg_size / 1024 << "KB each" << endl;
+    cout << "Total time: " << duration.count() << " ms" << endl;
+    cout << "Total throughput: " << fixed << setprecision(2) << throughput << " MB/s" << endl;
+    cout << "Average per message throughput: " << fixed << setprecision(2) << throughput / num_messages << " MB/s" << endl;
     
     // 显示前几个摘要
-    cout << "前3个消息的摘要:" << endl;
+    cout << "First 3 message hashes:" << endl;
     for (int i = 0; i < min(3, num_messages); i++) {
-        cout << "消息 " << i << ": ";
+        cout << "Message " << i << ": ";
         sm3_simd_print_hex(digests[i].data(), SM3_DIGEST_SIZE);
     }
 }
 
 // SIMD指令集功能测试
 void test_simd_instructions() {
-    cout << "\n=== SIMD指令集功能测试 ===" << endl;
+    cout << "\n=== SIMD Instruction Set Test ===" << endl;
     
     // 测试SIMD旋转运算
     uint32_t test_values[4] = {0x12345678, 0x87654321, 0xABCDEF00, 0x00FEDCBA};
     __m128i test_vec = _mm_loadu_si128((__m128i*)test_values);
     
-    cout << "原始值: ";
+    cout << "Original values: ";
     for (int i = 0; i < 4; i++) {
         cout << hex << test_values[i] << " ";
     }
@@ -150,23 +150,23 @@ void test_simd_instructions() {
     uint32_t rotated_values[4];
     _mm_storeu_si128((__m128i*)rotated_values, rotated);
     
-    cout << "左旋12位: ";
+    cout << "Left rotate 12 bits: ";
     for (int i = 0; i < 4; i++) {
         cout << hex << rotated_values[i] << " ";
     }
     cout << endl;
     
     // 验证结果
-    cout << "验证 (标量): ";
+    cout << "Verification (scalar): ";
     for (int i = 0; i < 4; i++) {
         uint32_t expected = ROL(test_values[i], 12);
         cout << hex << expected << " ";
         if (expected != rotated_values[i]) {
-            cout << "\n错误：SIMD旋转结果不匹配！" << endl;
+            cout << "\nError: SIMD rotation result mismatch!" << endl;
             return;
         }
     }
-    cout << "\nSIMD旋转运算测试通过！" << endl;
+    cout << "\nSIMD rotation test passed!" << endl;
     
     // 测试P0和P1函数
     __m128i p0_result = sm3_mm_P0_epi32(test_vec);
@@ -182,16 +182,16 @@ void test_simd_instructions() {
     }
     cout << endl;
     
-    cout << "P0 标量: ";
+    cout << "P0 scalar: ";
     for (int i = 0; i < 4; i++) {
         uint32_t expected = P0(test_values[i]);
         cout << hex << expected << " ";
         if (expected != p0_values[i]) {
-            cout << "\n错误：P0 SIMD结果不匹配！" << endl;
+            cout << "\nError: P0 SIMD result mismatch!" << endl;
             return;
         }
     }
-    cout << "\nP0 SIMD函数测试通过！" << endl;
+    cout << "\nP0 SIMD function test passed!" << endl;
     
     cout << "P1 SIMD: ";
     for (int i = 0; i < 4; i++) {
@@ -199,34 +199,34 @@ void test_simd_instructions() {
     }
     cout << endl;
     
-    cout << "P1 标量: ";
+    cout << "P1 scalar: ";
     for (int i = 0; i < 4; i++) {
         uint32_t expected = P1(test_values[i]);
         cout << hex << expected << " ";
         if (expected != p1_values[i]) {
-            cout << "\n错误：P1 SIMD结果不匹配！" << endl;
+            cout << "\nError: P1 SIMD result mismatch!" << endl;
             return;
         }
     }
-    cout << "\nP1 SIMD函数测试通过！" << endl;
+    cout << "\nP1 SIMD function test passed!" << endl;
     
     cout << dec; // 恢复十进制输出
 }
 
 // 内存对齐测试
 void test_memory_alignment() {
-    cout << "\n=== 内存对齐测试 ===" << endl;
+    cout << "\n=== Memory Alignment Test ===" << endl;
     
     // 测试对齐内存分配
     uint32_t *aligned_mem = (uint32_t*)_mm_malloc(68 * sizeof(uint32_t), 32);
     
     if (aligned_mem == nullptr) {
-        cout << "内存分配失败！" << endl;
+        cout << "Memory allocation failed!" << endl;
         return;
     }
     
-    cout << "对齐内存地址: " << hex << (uintptr_t)aligned_mem << endl;
-    cout << "32字节对齐检查: " << ((uintptr_t)aligned_mem % 32 == 0 ? "通过" : "失败") << endl;
+    cout << "Aligned memory address: " << hex << (uintptr_t)aligned_mem << endl;
+    cout << "32-byte alignment check: " << ((uintptr_t)aligned_mem % 32 == 0 ? "Pass" : "Fail") << endl;
     
     // 测试对齐访问性能
     const int iterations = 1000000;
@@ -249,15 +249,15 @@ void test_memory_alignment() {
     auto end_time = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(end_time - start_time);
     
-    cout << dec << "对齐内存访问测试 (" << iterations << " 次迭代): " 
-         << duration.count() << " 微秒" << endl;
+    cout << dec << "Aligned memory access test (" << iterations << " iterations): " 
+         << duration.count() << " microseconds" << endl;
     
     _mm_free(aligned_mem);
-    cout << "内存对齐测试完成！" << endl;
+    cout << "Memory alignment test completed!" << endl;
 }
 
 int main() {
-    cout << "SM3 哈希算法 - SIMD优化版本测试" << endl;
+    cout << "SM3 Hash Algorithm - SIMD Optimized Version Test" << endl;
     cout << "========================================" << endl;
     
     try {
@@ -267,10 +267,10 @@ int main() {
         test_simd_instructions();
         test_memory_alignment();
         
-        cout << "\n所有SIMD测试完成！" << endl;
+        cout << "\nAll SIMD tests completed!" << endl;
         
     } catch (const exception& e) {
-        cerr << "测试过程中发生错误: " << e.what() << endl;
+        cerr << "Error occurred during testing: " << e.what() << endl;
         return 1;
     }
     
