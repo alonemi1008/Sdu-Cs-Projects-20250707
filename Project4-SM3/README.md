@@ -264,11 +264,3 @@ sm3_simd_multi_hash(data_ptrs, data_lens, digest_ptrs, 4);
 1. [GM/T 0004-2012 SM3密码杂凑算法](https://oscca.gov.cn/)
 2. [Intel AVX2 Programming Reference](https://software.intel.com/)
 3. [GCC Vector Extensions](https://gcc.gnu.org/onlinedocs/gcc/Vector-Extensions.html)
-
-## 许可证
-
-本项目采用MIT许可证，详见LICENSE文件。
-
----
-
-**注意**：本实现仅供学习和研究使用，生产环境中请使用经过安全审计的密码库。 
