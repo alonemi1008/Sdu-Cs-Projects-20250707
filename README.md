@@ -8,7 +8,7 @@
 
 ## 项目总览
 
-本仓库包含五个完整的密码学项目，涵盖对称密码、哈希函数、椭圆曲线密码、数字水印和零知识证明技术。
+本仓库包含六个完整的密码学项目，涵盖对称密码、哈希函数、椭圆曲线密码、数字水印、零知识证明和隐私保护技术。
 
 | 项目名称 | 主要效果 | 性能提升 | 文档链接 |
 |---------|---------|---------|---------|
@@ -17,6 +17,7 @@
 | [**Project3-Circom**](./Project3-Circom/) | 隐私计算 | 400-500ms验证 | [详细说明](./Project3-Circom/README.md) |
 | [**Project4-SM3**](./Project4-SM3/) | 高性能实现 | 2.8x SIMD加速 | [详细说明](./Project4-SM3/README.md) |
 | [**Project5-SM2**](./Project5-SM2/) | 完整ECC实现 | 2.7x优化加速 | [详细说明](./Project5-SM2/README.md) |
+| [**Project6-Googlecheck**](./Project6-Googlecheck/) | 隐私保护密码检测 | 8-26秒查询 | [详细说明](./Project6-Googlecheck/README.md) |
 
 ---
 
@@ -59,6 +60,14 @@
 | **签名验证** | 0.0456s | 0.0178s | 2.56x | 同时点乘法 |
 | **加密操作** | 0.0289s | 0.0112s | 2.58x | 蒙哥马利阶梯 |
 
+### Project6-Googlecheck 隐私保护密码检测
+| 特性 | 实现效果 | 技术优势 |
+|-----|---------|---------|
+| **查询延迟** | 8-26秒 | 包含Argon2计算 |
+| **网络传输** | ~1MB/查询 | 高效数据传输 |
+| **内存使用** | 256MB | Argon2参数优化 |
+| **隐私保护** | 零知识查询 | 服务器无法知道具体凭证 |
+
 ---
 
 ## 环境要求
@@ -70,6 +79,7 @@
 | [Project3-Circom](./Project3-Circom/) | JavaScript | Node.js 16+, Circom | npm 8+ |
 | [Project4-SM3](./Project4-SM3/) | C++ | GCC 4.9+ | SSE4.2指令集 |
 | [Project5-SM2](./Project5-SM2/) | Python 3.6+ | 标准库 | 无外部依赖 |
+| [Project6-Googlecheck](./Project6-Googlecheck/) | Python 3.7+ | cryptography, argon2-cffi | 跨平台支持 |
 
 ---
 
@@ -118,6 +128,16 @@ python main.py optimized       # 优化功能
 python main.py performance     # 性能测试
 ```
 
+### Project6-Googlecheck 隐私保护密码检测
+```bash
+cd Project6-Googlecheck
+pip install -r requirements.txt
+python run_demo.py             # 快速演示
+# 或者分别启动服务器和客户端
+python demo/demo_server.py --setup-demo --port 8080
+python demo/demo_client.py --server http://localhost:8080
+```
+
 ---
 
 ## 项目统计
@@ -132,13 +152,14 @@ python main.py performance     # 性能测试
 
 ## 技术成果
 
-**五大密码学方向完整覆盖**：
+**六大密码学方向完整覆盖**：
 
 1. **SM4对称加密算法**：查表、SIMD、AES-NI多层次优化
 2. **SM3哈希函数**：基础优化与SIMD并行计算  
 3. **SM2椭圆曲线密码**：完整ECC实现与多种优化算法
 4. **数字水印技术**：空域、频域、变换域三种算法路线
 5. **零知识证明系统**：基于Groth16的Poseidon2哈希证明
+6. **隐私保护密码检测**：Google Password Checkup协议完整实现
 
 ---
 
