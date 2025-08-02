@@ -310,13 +310,6 @@ python run_demo.py
 # docs/PROJECT_SUMMARY.md - 项目技术总结
 ```
 
-## 注意事项
-
-1. 本实现仅用于教育和研究目的
-2. 生产环境需要额外的安全审计
-3. 需要大量计算资源处理真实规模的泄露数据库
-4. 移动设备可能因计算和网络开销过大而不适用
-
 ## 参考文献
 
 - Thomas, K. et al. "Protecting accounts from credential stuffing with password breach alerting." USENIX Security Symposium, 2019.
